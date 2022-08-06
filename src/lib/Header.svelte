@@ -1,6 +1,6 @@
 <main>
     <div id="nav">
-	<h1>Workout Bitch</h1>
+	<h1>Workout Minimal</h1>
 	<div id="nav-el">
 	    <img src="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Flogos-download.com%2Fwp-content%2Fuploads%2F2016%2F09%2FGitHub_logo.png&f=1&nofb=1" alt="github-logo" width="20px">
 	    <p>About</p>
