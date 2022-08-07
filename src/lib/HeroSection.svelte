@@ -21,33 +21,54 @@
       check: false,
     },
   ];
+  let started = false;
+  let currentExcercise = 0;
+  let counterSet = 0;
+  let setComplete = false;
+  let numberReps = 3;
 
-  function check(obj) {
-    obj.check = !obj.check;
+  // functions
+  function setFinish() {
+    counterSet++;
+    if (counterSet >= numberReps) {
+      counterSet = 0;
+      setComplete = true;
+    }
+  }
+
+  $: if (setComplete) {
+    currentExcercise++;
+    setComplete = false;
+    if (currentExcercise >= excercises.length) {
+      started = false;
+    }
   }
 </script>
 
 <div>
-  {#each excercises as ex}
-    <div class="card">
-      <p>{ex.name}</p>
-      <img src={ex.src} alt="a" width="200px" />
+  {#if !started && currentExcercise > 0}
+    <div class="center normal">
+      <h1>Good Job</h1>
+    </div>
+  {:else if !started}
+    <div class="center normal">
+      <button on:click={() => (started = !started)}>Start workout</button>
+    </div>
+  {:else}
+    <div class="card normal">
+      <p class="title">{excercises[currentExcercise].name}</p>
+      <img src={excercises[currentExcercise].src} alt="" width="250px" />
       <div class="buttons">
-        <button on:click={() => (ex.check = !ex.check)}>First set</button>
-        <button on:click={() => (ex.check = !ex.check)}>Second set</button>
-        <button on:click={() => (ex.check = !ex.check)}>Third set</button>
+        <button on:click={setFinish}>{counterSet} of {numberReps}</button>
       </div>
     </div>
-  {/each}
+  {/if}
 </div>
 
 <style scoped>
-  @import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
-  p {
-    font-size: 20px;
-    text-transform: capitalize;
-    font-family: "Roboto", sans-serif;
-    font-weight: 100;
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+  .normal {
+    font-family: "Poppins", sans-serif;
   }
   div {
     display: flex;
@@ -61,6 +82,10 @@
     border-radius: 10px;
     justify-content: center;
     align-items: center;
+    justify-items: center;
+    height: 70vh;
+    width: 100vw;
+    font-family: "Open Sans", sans-serif;
   }
   button {
     outline: none;
@@ -74,5 +99,16 @@
   }
   .buttons {
     display: grid;
+  }
+  p {
+    text-transform: capitalize;
+    font-size: 27px;
+  }
+  .center {
+    width: 100vw;
+    height: 70vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
 </style>
